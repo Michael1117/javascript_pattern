@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+    var Book = function (name) {
+        this.name = name;
+    }
+
+    Book.prototype = {
+        page: 500,
+        getName: function () {
+            return this.name
+        }
+    }
+
+    /*// 构造函数式继承
+    var Pattern = function (name) {
+        // 继承父类Book 构造函数中的属性
+        Book.call(this, name)
+    }
+
+
+    var s = new Pattern('javascript 设计模式')
+    console.log(s);*/
+
+    // 原型式继承
+    var Pattern = function () {
+
+    }
+    // 实例化的对象 能够找到该类的原型 这样 我们将父类的实例化对象赋值给子类的原型 那么子类的原型就是指向了父类的原型
+    Pattern.prototype = new Book()
+
+    var s = new Pattern();
+
+    console.log(s);
+    console.log(s.page);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        #myCanvas {
+            background-color: #000;
+        }
+    </style>
+</head>
+<body>
+<canvas width="1000" height="400" id="myCanvas"></canvas>
+
+<script type="text/javascript">
+    var ctx = myCanvas.getContext('2d');
+
+    var w = myCanvas.width;
+    var h = myCanvas.height;
+
+    ctx.fillStyle = 'red'
+
+    var Ball = function (x, y, r) {
+        this.x = x;
+        this.y = y;
+        this.r = r;
+    }
+
+    Ball.prototype = {
+        draw: function () {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+            ctx.closePath();
+            ctx.fill()
+        }
+    }
+
+    function BallFactory(num) {
+        if (num) {
+            var result = []
+            for (var i = 0; i < num; i++) {
+                //result.push(BallFactory())
+                result.push(arguments.callee())
+            }
+            return result
+        }else {
+            var x = Math.random() * w;
+            var y = Math.random() * h;
+            var r = Math.random() * 10 + 10;
+            var ball = new Ball(x, y, r)
+            return ball
+        }
+    }
+
+    // 批量生产
+    /*function ManyBallFactory(num) {
+        var result = [];
+        for (var i = 0; i < num; i++) {
+            result.push(BallFactory())
+        }
+
+        return result
+    }
+
+    var balls = ManyBallFactory(10)
+
+    console.log(balls);*/
+
+
+
+    var Ball2Factory = BallFactory;
+    BallFactory = null;
+
+    var arr = Ball2Factory(10);
+    console.log(arr, 1111);
+
+</script>
+</body>
+</html>

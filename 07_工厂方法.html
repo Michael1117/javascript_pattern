@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        html,body{
+            height: 100%;
+        }
+        div{
+            position: absolute;
+        }
+        .rect{
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+        .circle{
+            width: 100px;
+            height: 100px;
+            background: green;
+            border-radius: 50%;
+        }
+        .arrow-top{
+            width: 0;
+            border-top: 100px solid blue;
+            border-bottom: 100px solid transparent;
+            border-left: 100px solid transparent;
+            border-right: 100px solid transparent;
+        }
+    </style>
+</head>
+<body>
+<!--<div class="rect"></div>
+<div class="circle"></div>
+<div class="arrow-top"></div>
+<div class="arrow-bottom"></div>
+<div class="arrow-left"></div>
+<div class="arrow-right"></div>-->
+
+<script type="text/javascript">
+    var w = document.body.offsetWidth;
+    var h = document.body.offsetHeight
+    var Rect = function (x, y) {
+        this.dom = document.createElement('div')
+        this.dom.style.left = x + 'px';
+        this.dom.style.top = y + 'px';
+        this.dom.className = 'rect'
+    }
+
+    var Circle = function(x, y) {
+        this.dom = document.createElement('div');
+        this.dom.style.left = x + 'px';
+        this.dom.style.top = y + 'px';
+        this.dom.className = 'circle'
+    }
+
+    var ArrowTop = function(x, y) {
+        this.dom = document.createElement('div');
+        this.dom.style.left = x + 'px';
+        this.dom.style.top = y + 'px';
+        this.dom.className = 'arrow-top'
+    }
+
+    Rect.prototype = {
+        init: function () {
+            document.body.appendChild(this.dom)
+        }
+    };
+
+    Circle.prototype = {
+        init: function () {
+            document.body.appendChild(this.dom)
+        }
+    }
+
+    ArrowTop.prototype = {
+        init: function () {
+            document.body.appendChild(this.dom)
+        }
+    }
+    //var x = Math.random() * w;
+    //var y = Math.random() * h;
+    //new Rect(x, y).init()
+
+    //new Circle(x, y).init()
+    //new ArrowTop(x, y).init()
+
+    function ShapeFactory(type) {
+        var x = Math.random() * w;
+        var y = Math.random() * h;
+
+        var shape = null;
+
+        // 通过type的不同来创建不同的产品实例
+        switch (type) {
+            case 'rect':
+                shape = new Rect(x, y)
+                break;
+            case 'circle':
+                shape = new Circle(x, y);
+                break;
+            case 'arrowTop':
+                shape = new ArrowTop(x, y);
+                break
+        }
+        // 在工厂方法模式中 我们可以对类进行其他操作:
+        if(shape){
+            shape.init()
+        }
+
+        // 将实例返回出来
+        return shape
+    }
+
+    ShapeFactory('rect');
+    ShapeFactory('circle');
+    ShapeFactory('arrowTop')
+</script>
+
+
+</body>
+</html>
