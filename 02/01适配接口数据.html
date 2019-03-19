@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+    function DealData(arr) {
+        var div = document.createElement('div');
+        var img = new Image();
+        var a = document.createElement('a');
+        var p = document.createElement('p');
+
+        img.src = arr[1];
+        a.href = arr[0];
+
+        p.innerHTML = arr[2];
+        a.appendChild(p);
+        a.appendChild(img);
+        div.appendChild(a);
+        document.body.appendChild(div)
+    }
+
+    function dataAdaptor(data) {
+        var arr = [];
+        var map = {
+            src: 1,
+            href: 0,
+            title: 2
+        }
+
+        for(var i in map){
+            arr[map[i]] = data[i]
+        }
+        /*arr[0] = data.href;
+        arr[1] = data.src;
+        arr[3] = data.title;*/
+        return arr;
+    }
+
+    // 第三方数据源
+
+    /*
+    * obj.href: 链接地址
+    * obj.src: 图片地址
+    * obj.title: 图片标题
+    *
+    * */
+
+    $.get('disanfang',function (res) {
+        if(res && res.error === 0) {
+            //res.data
+            var newRes = dataAdaptor(res.data)
+        }
+    })
+</script>
+
+</body>
+</html>

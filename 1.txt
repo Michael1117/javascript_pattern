@@ -1,0 +1,2 @@
+ctrl + alt + l  格式化
+ctrl + r   查找替换

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+    var Base = function () {
+        this.children = [];     // 父节点的容器 包含子节点实例化对象
+        this.element = null;    // 父节点对应的元素
+    }
+
+    Base.prototype = {
+        init: function() {
+            throw new Error('请定义init方法')
+        },
+        // child 表示子类的实例化对象
+        // 向父节点中添加子节点, 分两步
+        // 1 将子节点实例化的对象放到父节点的容器内
+        // 2 将子节点对应的元素放到父节点对应的元素内
+        add: function (child) {
+            // (要把父节点包含的)子节点添加到父节点的容器内  1
+            this.children.push(child)
+            // 将子元素 添加到父元素内 2
+            this.element.appendChild(child.getElement())
+            return this;
+        },
+        // 习惯上 我们不直接引用 this.element 而是通过getElement 获取
+        getElement: function () {
+            return this.element;
+        }
+
+    }
+
+    //var b = new Base();
+    /*
+    * id 容器的id  方便外部获取
+    * parent 包含容器的父节点 这样容器才能插入到页面中
+    *
+    * */
+    var Container = function (id, parent) {
+        Base.call(this)
+        this.id = id;
+        this.parent = parent;
+        this.init()
+    }
+
+    Container.prototype = new Base();
+
+    Container.prototype.init = function () {
+        this.element = document.createElement('ul')
+
+        this.element.id = this.id;
+
+        // 为元素添加类
+        this.element.className = 'container'
+    }
+
+
+    Container.prototype.show = function () {
+        this.parent.appendChild(this.element);
+        return this;
+    }
+
+    var Item = function (className) {
+        Base.call(this);
+        this.className = className || ''
+        this.init()
+    }
+
+    Item.prototype = new Base();
+    Item.prototype.init = function () {
+        this.element = document.createElement('li');
+
+        this.element.className = this.className;
+    }
+
+    var TextNews = function (text, href) {
+        Base.call(this);
+        this.text = text;
+        this.href = href || '#'
+        this.init()
+    }
+
+    TextNews.prototype = new Base();
+    TextNews.prototype.init = function () {
+        this.element = document.createElement('a');
+        this.element.innerHTML = this.text;
+        this.element.href = this.href;
+    }
+
+    var TypeNews = function (text, href ,type) {
+        Base.call(this);
+        this.text = text;
+        this.href = href;
+        this.type = type;
+        this.init()
+    }
+    TypeNews.prototype = new Base();
+    TypeNews.prototype.init = function () {
+        this.element = document.createElement('a');
+        var span = document.createElement('span');
+        span.innerHTML = this.type + ' | '
+        //this.element.innerHTML = this.type + '|' + this.text;
+        var text = document.createTextNode(this.text)
+        this.element.appendChild(span);
+        this.element.appendChild(text)
+        this.element.href = this.href
+    }
+    TypeNews.prototype.add = function () {
+
+    }
+    // 单侧
+
+    var container = new Container('my_news', document.body)
+
+    container.add(
+        new Item().add(
+            new TextNews('新闻')
+        )
+    ).add(
+        new Item().add(
+            new TextNews('英格兰')
+        )
+    ).add(
+        new Item().add(
+            new TypeNews('暴雪对 魔兽不满', '#', '科技')
+        )
+    ).show()
+</script>
+
+</body>
+</html>

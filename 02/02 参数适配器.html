@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+    // 将多个数据对象  转化为一个数据对象
+    function extend(target, obj) {
+        for(var i in obj){
+            // i是 obj中的属性
+            // obj[i] 是obj 中的属性值
+            target[i] = obj[i];
+        }
+
+        // 将target 返回
+        return target
+    }
+    var Button = function (param) {
+        var btn = document.createElement('button');
+        var def = {
+            background: 'red',
+            color: 'white',
+            fontSize: '12px',
+            text: '按钮'
+        }
+        /*if(param.background) {
+            //btn.style.background = param.background
+            btn.style.background = param.background || '';
+        }*/
+        // 适配用户传递的参数与默认的参数
+        def = extend(def, param)
+        // 遍历参数 来设置我们的按钮样式
+        for(var i in def){
+            if(i === 'text') {
+                btn.innerHTML  = def[i]
+            }else {
+                btn.style[i] = def[i]
+            }
+        }
+
+        document.body.appendChild(btn);
+        //btn.style.background = param.background || '';
+    }
+
+    Button({
+        color: '#000'
+    })
+</script>
+
+</body>
+</html>

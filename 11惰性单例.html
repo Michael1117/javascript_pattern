@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+var LazySingle = (function () {
+    var _instance = null;
+    var Single = function () {
+        // 有上万行代码
+        console.log('success');
+    }
+
+    Single.prototype = {
+        // 有上万行代码
+        version: 2,
+        sayHello: function () {
+            console.log('hello');
+        }
+    };
+    return function () {
+        if(!_instance) {
+            _instance = new Single();
+        }
+        return _instance
+    }
+})()
+
+    setTimeout(function () {
+        LazySingle()
+    },2000)
+
+    var s = LazySingle();
+    s.sayHello();
+</script>
+
+</body>
+</html>

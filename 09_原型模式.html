@@ -4,14 +4,102 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style type="text/css">
-
+        html,body{
+            height: 100%;
+        }
+        div{
+            position: absolute;
+        }
+        .rect{
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+        .circle{
+            width: 100px;
+            height: 100px;
+            background: green;
+            border-radius: 50%;
+        }
+        .arrow-top{
+            width: 0;
+            border-top: 100px solid blue;
+            border-bottom: 100px solid transparent;
+            border-left: 100px solid transparent;
+            border-right: 100px solid transparent;
+        }
     </style>
 </head>
 <body>
-<script type="text/javascript">
+<!--<div class="rect"></div>
+<div class="circle"></div>
+<div class="arrow-top"></div>
+<div class="arrow-bottom"></div>
+<div class="arrow-left"></div>
+<div class="arrow-right"></div>-->
 
+<script type="text/javascript">
+    var w = document.body.offsetWidth;
+    var h = document.body.offsetHeight;
+
+    var Base = function (x, y) {
+
+        this.dom = document.createElement('div');
+        this.dom.style.left = x + 'px';
+        this.dom.style.top = y + 'px'
+    }
+
+    Base.prototype = {
+        // 子类原型中 init 方法是相同的 , 我们提取出来 放在基类 (父类) 的构造函数中
+        init: function () {
+            document.body.appendChild(this.dom)
+        }
+    }
+    var Rect = function (x, y) {
+        Base.call(this, x , y);
+        this.dom.className = 'rect'
+    }
+
+    Rect.prototype = new Base()
+
+    var r = new Rect(100, 100)
+    r.init();
+
+    var Circle = function(x, y) {
+        Base.call(this, x , y);
+        this.dom.className = 'circle'
+    }
+
+    Circle.prototype = new Base();
+    Circle.prototype.changeColor = function (c) {
+        this.dom.style.background = c
+    }
+
+    Circle.prototype.html = function (text) {
+
+        this.dom.innerHTML = text
+    }
+    var c = new Circle(200, 200)
+    c.init();
+
+    c.html('hello');
+    setTimeout(function () {
+        c.changeColor('pink')
+    },2000)
+
+
+    var ArrowTop = function(x, y) {
+        Base.call(this, x , y);
+        this.dom.className = 'arrow-top'
+    }
+
+    ArrowTop.prototype = new Base()
+    var a = new ArrowTop(300, 300);
+
+    a.init()
 
 </script>
+
 
 </body>
 </html>
