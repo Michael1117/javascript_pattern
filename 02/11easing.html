@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        div{
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: relative;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<div id="div_1"></div>
+<div id="div_2"></div>
+<div id="div_3"></div>
+<div id="div_4"></div>
+<div id="div_5"></div>
+<div id="div_6"></div>
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-easing/1.4.1/jquery.easing.js"></script>
+<script type="text/javascript">
+    $('#div_1').animate({left: 1000}, 2000, 'swing')
+    $('#div_2').animate({left: 1000}, 2000, 'easeOutCubic')
+    $('#div_3').animate({left: 1000}, 2000, 'easeInOutQuad')
+    $('#div_4').animate({left: 1000}, 2000, 'easeInOutCubic')
+    $('#div_5').animate({left: 1000}, 2000, 'easeInOutQuart')
+    $('#div_6').animate({left: 1000}, 2000, 'easeInQuint')
+
+
+</script>
+
+</body>
+</html>

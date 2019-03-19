@@ -4,10 +4,78 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .header{
+            height: 30px;
+            line-height: 30px;
+            background: #f7f7f7;
+        }
 
+        .main{
+            margin: 0 auto;
+            width: 1000px;
+        }
+        span{
+            margin: 5px;
+        }
+
+        h2{
+            margin: 30px auto 20px;
+        }
+        button{
+            padding:5px 10px;
+        }
+        #msg_list{
+            margin: 0 0 30px 0;
+
+        }
+
+        li{
+            list-style: none;
+            padding: 0 9px;
+            line-height: 30px;
+            height: 30px;
+        }
+        li span{
+            float: right;
+            width: 20px;
+            height: 20px;
+            background: red;
+            cursor: pointer;
+        }
+        li:nth-child(even){
+            background: #f7f7f7;
+        }
     </style>
 </head>
 <body>
+<div class="header">
+    <div class="main">
+        <span>雨夜清荷</span>
+        <!--span{等级}>i{9}-->
+        <span>等级<i>9</i></span>
+        <!-- span{消息}>i#msg_num{0} -->
+
+        <span>消息<i id="msg_num">0</i></span>
+    </div>
+
+</div>
+<div class="main">
+    <h2>最近发布的消息</h2>
+    <ul id="msg_list"></ul>
+</div>
+
+<div class="main">
+
+    <textarea cols="60" rows="10" id="msg_text"></textarea>
+    <br/>
+    <button id="msg_submit">提交</button>
+
+</div>
+
 <script type="text/javascript">
     // 消息系统
     var Observer = (function () {
@@ -71,30 +139,25 @@
         }
     })()
 
-
-    var demo = function() {
-        console.log(111);
+    var $ = function (id) {
+        return document.getElementById(id)
     }
-    /*Observer.regist('say', function (e) {
-        console.log(e);
-        console.log(e.data.people + 'hello');
-    })
-
-    Observer.regist('say', demo)
-    //Observer.remove('say', demo)
-    Observer.fire('say', {
-        people: 'teacher say'
-    })*/
-
-    Observer.regist('say', function (e) {
-        console.log(e);
-        console.log(e.data.people + 'hello');
-        
-    }).regist('say', demo).fire('say',{
-        people: 'teacher say'
-    })
-
 </script>
+<script type="text/javascript" src="common/a.js"></script>
+<script type="text/javascript" src="common/b.js"></script>
+<script type="text/javascript" src="common/c.js"></script>
 
+<script>
+
+    /*Observer.fire('addMsg', {
+        msg: 'hello'
+    })
+    Observer.fire('addMsg', {
+        msg: 'hello2'
+    })
+    Observer.fire('addMsg', {
+        msg: 'hello3'
+    })*/
+</script>
 </body>
 </html>

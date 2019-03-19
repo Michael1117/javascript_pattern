@@ -8,7 +8,8 @@
     </style>
 </head>
 <body>
-<script type="text/javascript">
+<script>
+
     // 消息系统
     var Observer = (function () {
         // 消息系统内定义一个消息管道 将用户订阅的消息保存起来
@@ -71,28 +72,21 @@
         }
     })()
 
+</script>
+<script src="common/teacher.js"></script>
+<script src="common/student.js"></script>
+<script type="text/javascript">
+    var txt = '什么是设计模式'
+    var stu1 = new Student('小明', '不知道');
+    var stu2 = new Student('小王', 'xxxx')
+    stu1.listen(txt)
+    stu2.listen(txt)
+    //stu2.sleep(txt)
 
-    var demo = function() {
-        console.log(111);
-    }
-    /*Observer.regist('say', function (e) {
-        console.log(e);
-        console.log(e.data.people + 'hello');
-    })
+    var teacher = new Teacher('张老师');
 
-    Observer.regist('say', demo)
-    //Observer.remove('say', demo)
-    Observer.fire('say', {
-        people: 'teacher say'
-    })*/
+    teacher.ask(txt)
 
-    Observer.regist('say', function (e) {
-        console.log(e);
-        console.log(e.data.people + 'hello');
-        
-    }).regist('say', demo).fire('say',{
-        people: 'teacher say'
-    })
 
 </script>
 

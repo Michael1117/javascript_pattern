@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+<div>
+    <label for="">昵称</label>
+    <input type="text" id="inp1">
+    <span id="err1"></span>
+</div>
+<div>
+    <label for="">数字</label>
+    <input type="text" id="inp2">
+    <span id="err2"></span>
+</div>
+<div>
+    <label for="">电话</label>
+    <input type="text" id="inp3">
+    <span id="err3"></span>
+</div>
+<script type="text/javascript">
+    var InputStrategy = (function () {
+       var strategy = {
+           notNull: function (value) {
+               return /^\s*$/.test(value) ? '输入的内容不能为空': ''
+           },
+           isNumber: function (value) {
+               return /^-?\d+(\.\d*)?$/.test(value) ? '': '输入的不是一个正确的数字'
+           },
+           isTelephoneNumber: function (value) {
+               return /^\d{3}\-\d{8}$|^\d{4}\-\d{7}$/.test(value) ? '': '请输入一个正确的电话号码'
+           }
+       }
+       return {
+           check: function (value, type) {
+               if(strategy[type]) {
+                   return strategy[type](value)
+               }else {
+                   return '没有该检测方法'
+               }
+           },
+           // 拓展我们的算法
+           add: function (type, fn) {
+                strategy[type] = fn
+           }
+       }
+    })()
+    /*
+    * inp input输入框的id
+    * err 后面提示错误文档span的id
+    * type 检测的策略
+    * */
+    function checkInput(inp, err, type) {
+        document.getElementById(inp).onblur = function (e) {
+            var value = e.target.value;
+            // 获取检测的结果
+            var result = InputStrategy.check(value, type)
+            //var value = this.value
+            if(result){
+                document.getElementById(err).innerHTML = result;
+            }else {
+                document.getElementById(err).innerHTML = ''
+            }
+        }
+    }
+
+    var arr = ['notNull', 'isNumber' ,'isTelephoneNumber']
+    for(var i = 1; i < 3; i++){
+        checkInput('inp' + i, 'err' + i, arr[i - 1] )
+    }
+</script>
+
+</body>
+</html>
